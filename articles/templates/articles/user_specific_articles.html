@@ -1,0 +1,37 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div class="articles">
+    {% for article in articles %}
+    <article>
+        {% if 'None' not in article.image.url %}
+        <img src="{{article.image.url}}" alt="" class="article-image">
+        {% endif %}
+        <div class="article-preview container">
+
+            <a href="{% url 'articles:detail' slug=article.slug %}" class="article-title">
+                <h1>{{article.title}}</h1>
+            </a>
+
+
+            <p class="article-content">
+                {{article.snippet}}
+            </p>
+
+            <small> <i class="text-muted article-date">{{article.date|date:"F d, Y f A"}}</i>
+            </small>
+            <div class="">
+                <small class="text-muted">
+                    {% if article.total_likes == 1 %}
+                    1 like
+                    {% else %}
+                    {{ article.total_likes }} likes
+                    {% endif %}</small>
+            </div>
+
+
+        </div>
+    </article>
+    {% endfor %}
+</div>
+{% endblock %}

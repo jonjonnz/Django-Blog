@@ -1,0 +1,190 @@
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% if title %}
+    <title>MovieSpot - {{ title }}</title>
+    {% else %}
+    <title>MovieSpot</title>
+    {% endif %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&family=Syne+Mono&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{%static 'css/style.css'%}">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+        <a class="navbar-brand" href="{% url 'blog:blog-home' %}">
+            <img class="brand-logo" src="{% static 'img/logo.png' %}">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse navbar-nav" id="navbarNav">
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'articles:create' %}">New Article</a>
+                </li>
+                {% endif %}
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="{% url 'articles:list' %}">Articles</a>
+                </li> -->
+                <li class="nav-item  dropdown">
+                    <a class="nav-link" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Settings
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        {% if user.is_authenticated %}
+                        <a class="dropdown-item" href="{% url 'accounts:profile' %}">Profile</a>
+                        {% else %}
+                        <a class="dropdown-item disabled" href="{% url 'accounts:profile' %}">Profile</a>
+                        <a class="dropdown-item" href="{% url 'accounts:signup' %}">Sign up</a>
+                        <a class="dropdown-item" href="{% url 'accounts:login' %}">Login</a>
+                        {% endif %}
+                        <a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blog:blog-about' %}">About us</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="">
+        <div class="row container">
+            {% if view.kwargs.username %}
+            <h4 class="mb-3">Posts by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h4>
+            {% endif %}
+            <!-- {% if is_paginated %}
+            <div class="page-nav">
+
+                {% if page_obj.has_previous %}
+                <a class="btn mb-4 pb-0 pt-0" href="?page=1">First</a>
+                <a class="btn mb-4 pb-0 pt-0" href="?page={{ page_obj.previous_page_number }}">Prev</a>
+                {% else %}
+                <a class="btn mb-4 pb-0 pt-0 disabled" href="">First</a>
+                <a class="btn mb-4 pb-0 pt-0 disabled" href="">Prev</a>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <a class="btn mb-4 pb-0 pt-0 btn-selected" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <a
+                    class="btn mb-4 pb-0 pt-0" href="?page={{ num }}">{{ num }}</a>
+                    {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                    <a class="btn mb-4 pb-0 pt-0" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a class="btn mb-4 pb-0 pt-0" href="?page={{ page_obj.paginator.num_pages}}">Last</a>
+                    {% else %}
+                    <a class="btn mb-4 pb-0 pt-0 disabled" href="">Next</a>
+                    <a class="btn mb-4 pb-0 pt-0 disabled" href="">Last</a>
+                    {% endif %}
+            </div>
+            {% endif %} -->
+        </div>
+        <div class="row justify-content-around">
+            <div class="my-col col-md-8">
+                {% if messages %}
+                {% for message in messages%}
+                <div class=" navbar-nav alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% block content %}
+                {% endblock %}
+                {% if is_paginated %}
+                <div class="page-nav container">
+    
+                    {% if page_obj.has_previous %}
+                    <a class="btn mb-4 pb-0 pt-0" href="?page=1">First</a>
+                    <a class="btn mb-4 pb-0 pt-0" href="?page={{ page_obj.previous_page_number }}">Prev</a>
+                    {% else %}
+                    <a class="btn mb-4 pb-0 pt-0 disabled" href="">First</a>
+                    <a class="btn mb-4 pb-0 pt-0 disabled" href="">Prev</a>
+                    {% endif %}
+                    {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <a class="btn mb-4 pb-0 pt-0 btn-selected" href="?page={{ num }}">{{ num }}</a>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <a
+                        class="btn mb-4 pb-0 pt-0" href="?page={{ num }}">{{ num }}</a>
+                        {% endif %}
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                        <a class="btn mb-4 pb-0 pt-0" href="?page={{ page_obj.next_page_number }}">Next</a>
+                        <a class="btn mb-4 pb-0 pt-0" href="?page={{ page_obj.paginator.num_pages}}">Last</a>
+                        {% else %}
+                        <a class="btn mb-4 pb-0 pt-0 disabled" href="">Next</a>
+                        <a class="btn mb-4 pb-0 pt-0 disabled" href="">Last</a>
+                        {% endif %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="my-col col-md-4">
+                <div class="container side-data">
+                    <div class="row">
+                        <div class="side-bar content-section">
+                            <h3 class="border-bottom border-dark">Quick nav</h3>
+                            <ul class="navbar-nav">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{% url 'articles:list' %}">Articles</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'articles:trending' %}">Trending Articles</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'articles:random' %}">Random Article</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% if user.is_authenticated %}
+
+                    <div class="row">
+                        {% if show_top_users %}
+                            <div class="author-bar">
+                                <h3 class="border-bottom border-dark mb-4 mt-2">Top Authors</h3>
+                                <div class="top-authors">
+                                    {% for user in top_users %}
+                                        <div class="media mb-3">
+                                            <img class="mt-1 rounded-circle author-img" src="{{ user.profile.image.url }}">
+
+                                            <div class="media-body">
+                                                <h4>
+                                                <a class="article-author" href="{% url 'articles:user-article-list' username=user.username %}">{{ user.get_full_name }}</a>
+                                            </h4>
+                                            <a class="article-author" href="{% url 'articles:user-article-list' username=user.username %}">{{ user.username }}</a>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

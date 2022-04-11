@@ -1,0 +1,344 @@
+:root {
+    --primary-background: #D4ECDD;
+    --secondary-background: #345B63;
+	--primary-text: #112031;
+	--secondary-text: #152D35;
+	--primary-border: #345B63;
+    --secondary-border: #152D35;
+    --extra-color:#666;
+    --gradient: linear-gradient(to right bottom,rgba(255,119,48, .8),rgba(255,185,0, .8));
+    --padding-var: 0.5em;
+}
+
+* {
+    font-family: Calibri, sans-serif;
+}
+
+/* Main Body */
+
+body {
+    background-color: var(--primary-background);
+    color: var(--primary-text);
+    /* background-image: url('../img/background.jpg');
+    background-attachment: fixed;
+    background-size: cover; */
+}
+
+main{
+    margin: 5em 1.5em 0 1.5em;
+}
+
+.content-section {
+    background-color: var(--primary-background);
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.7);
+    border-radius: var(--padding-var);
+    padding: 0.6rem 1.2rem 0 0.6rem;
+    color: var(--primary-text);
+    overflow:auto;
+}
+
+.row {
+    margin-bottom: 0.6rem;
+}
+
+
+/* Articles */
+
+article{
+    margin-bottom: 1.5rem;
+    margin-left: 0 !important;
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    box-shadow: -7px 5px 10px rgba(0, 0, 0, 0.7);
+    border-radius: var(--padding-var);
+
+    transition: 200ms transform ease-in-out;
+}
+.articles article {
+    margin: 0 0 0.6rem 0;
+}
+
+.article-title{
+    text-decoration: none;
+    color: var(--primary-text);
+}
+
+.article-title:hover{
+    text-decoration: none;
+    color: var(--primary-text);
+}
+
+.article-content {
+    white-space: pre-line;
+}
+.article-image{
+    float: left;
+    object-fit: cover;
+    object-position: center;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    border-radius: var(--padding-var) var(--padding-var) 0 0;
+    margin-bottom: 1em;
+
+}
+
+
+
+article:hover > .article-image{
+    transform: scale(1.025);
+}
+a.article-author:hover,
+a.article-title:hover {
+    text-decoration: none;
+}
+
+.article-detail .article-image{
+    width: 100%;
+}
+.article-detail article{
+    flex-direction: column;
+
+}
+.article-detail article:hover > .article-image{
+    transform: none;
+}
+
+/* Images */
+
+.author-img {
+    width: 3.45rem;
+    height: 3.45rem;
+    margin-right: 0.6rem;
+}
+
+article .author-img {
+    width: 2.45rem;
+    height: 2.45rem;
+}
+
+.author-img-profile {
+    width: 10rem;
+    height: 10rem;
+}
+
+.profile-img-section fieldset {
+    margin: 1.2rem 0 0 2rem;
+}
+
+#id_profile_pic {
+    max-width: 18rem;
+}
+
+
+/* Buttons */
+
+.btn {
+    background-color: var(--extra-color);
+    border: 0.07rem solid var(--primary-border);
+    color: var(--primary-text);
+}
+
+.btn:hover {
+    background-color: var(--primary-border);
+    color: var(--primary-text);
+    border: 0.07rem solid var(--secondary-border);
+}
+
+.btn-selected {
+    background-color: var(--secondary-background);
+    color: var(--secondary-border);
+    border: 0.07rem solid var(--secondary-border);
+}
+
+.like-dislike-form .like-btn {
+    font-size: 1.5rem;
+    background-color: var(--primary-background);
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.like-dislike-form .like-btn:hover {
+    color: var(--secondary-background);
+}
+
+
+/* Forms */
+
+.logout-form {
+    margin-bottom: 0.5rem;
+}
+
+
+/* Side bar */
+
+.side-bar {
+    font-size: 1.3rem;
+    text-align: start;
+    width: 100%;
+    color: var(--primary-text);
+}
+
+.side-bar a {
+    width: 11rem;
+    color: var(--primary-text);
+}
+
+.author-bar {
+    width: 100%;
+}
+
+.author-bar h4 a{
+    color: var(--primary-text);
+}
+
+.top-authors {
+    overflow-y: scroll;
+    height: 20rem;
+}
+
+/* Navigation Bar*/
+
+nav {
+    background-color: var(--secondary-background);
+    padding: 0 1rem !important;
+}
+
+nav .navbar-nav {
+    align-self: flex-end;
+}
+
+nav .navbar-brand, .brand-logo {
+    height: 4rem;
+    opacity: 1;
+}
+
+nav .nav-link {
+    font-size: 1.4rem;
+    text-align: end;
+    color: var(--primary-text) !important;
+    text-transform: uppercase;
+}
+
+nav .nav-link:hover {
+    color: var(--primary-background) !important;
+    transition: .35s;
+}
+
+nav .nav-link::after{
+    content: '';
+    display: block;
+    width: 0rem;
+    height: 0.1rem;
+    background-color: var(--primary-background);
+    transition: width .3s;
+}
+
+nav .nav-link:hover::after{
+    width: 100%;
+    transition: width 0.3s;
+}
+
+nav .dropdown-menu {
+    border: none;
+    background: var(--secondary-background);
+    font-size: 1.2rem;
+    text-align: end;
+}
+
+nav .dropdown-menu {
+    padding: 0rem;
+}
+
+nav .dropdown-item {
+    color: var(--primary-text);
+}
+
+
+/* Page navigation */
+
+.page-nav {
+    height: 1.5rem;
+}
+
+
+
+/* Glass effect */
+
+.glass {
+    box-shadow: 0px 25px 50px rgba(0, 0, 0, 0.2);
+    background: transparent;
+    backdrop-filter: blur(10px);
+    transition: 0.5s;
+}
+
+@media screen and (max-width:25rem) {
+    h1,
+    h2,
+    h4 {
+        font-size: 1.4rem;
+    }
+    .btn {
+        font-size: 0.6rem;
+    }
+    nav .nav-link,
+    .dropdown-item {
+        font-size: 1rem;
+        padding: 0.1rem 1rem;
+    }
+    nav span.navbar-toggler-icon {
+        font-size: 1rem;
+    }
+    .author-img {
+        width: 2.45rem;
+        height: 2.45rem;
+        margin-right: 0.6rem;
+    }
+    .author-img-profile {
+        width: 7rem;
+        height: 7rem;
+    }
+    .profile-img-section fieldset {
+        margin: 0;
+    }
+    .like-dislike-form .like-btn {
+        font-size: 1.1rem;
+        margin-left: 0.2rem;
+    }
+}
+
+@media screen and (min-width:61.25rem) {
+    article{
+        flex-direction: row;
+    }
+    .article-image{
+        width: 35%;
+        border-radius: var(--padding-var) 0 0 var(--padding-var);
+        margin-bottom: 0;
+
+    }
+    .article-detail .article-image{
+        width: 40%;
+    }
+
+}
+
+@media screen and (min-width:30rem) {
+        nav .navbar-nav {
+        align-self: center;
+        justify-content: flex-end;
+    }
+    nav .nav-link {
+        margin-right: 1.25rem;
+        padding: 0rem !important;
+    }
+    .side-data {
+        position: fixed;
+        width: 30%;
+    }
+    .row {
+        margin-top: 0rem;
+    }
+
+}

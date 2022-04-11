@@ -1,0 +1,56 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+
+<div class="article-detail">
+    <article>
+        {% if 'None' not in article.image.url %}
+        <img src="{{article.image.url}}" alt="" class="article-image">
+        {% endif %}
+        <div class="article-preview container">
+            <h1>{{object.title}}</h1>
+            <p class="article-content">
+                {{object.body}}
+            </p>
+            {% if object.author == user %}
+            <div class="media-body">
+                <a class="btn btn-sm mt-1 mb-1" href="{% url 'articles:delete' slug=object.slug %}">Delete</a>
+                <a class="btn btn-sm mt-1 mb-1" href="{% url 'articles:update' slug=object.slug %}">Update</a>
+            </div>
+            {% endif %}
+            <small> posted by <i class="article-author"><a
+                        href="{% url 'articles:user-article-list' username=object.author %}">{{object.author}}</a></i>
+                on
+                <i class="text-muted article-date">{{object.date|date:"F d, Y f A"}}</i>
+            </small>
+
+            {% if user.is_authenticated %}
+            <form class="like-dislike-form" action="{% url 'articles:like-dislike'%}" method="post">
+                {% csrf_token %}
+                <small class="text-muted mr-2">
+                    {% if object.total_likes == 1 %}
+                    1 like
+                    {% else %}
+                    {{ object.total_likes }} likes
+                    {% endif %}</small>
+                {% if liked %}
+                <button class="like-btn btn-sm fa fa-thumbs-down" type="submit" name="article_id" value="{{object.id}}">
+
+                </button>
+                {% else %}
+                <button class="like-btn btn-sm fa fa-thumbs-up" type="submit" name="article_id" value="{{object.id}}">
+
+                </button>
+
+                {% endif %}
+
+
+            </form>
+            {% endif %}
+
+        </div>
+
+    </article>
+</div>
+
+{% endblock %}

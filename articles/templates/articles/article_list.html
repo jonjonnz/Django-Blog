@@ -1,0 +1,66 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div class="articles">
+    {% for article in articles %}
+
+    <article>
+        {% if 'None' not in article.image.url %}
+        <img src="{{article.image.url}}" alt="" class="article-image">
+        {% endif %}
+        <div class="article-preview container">
+
+            <a href="{% url 'articles:detail' slug=article.slug %}" class="article-title">
+                <h1>{{article.title}}</h1>
+            </a>
+            
+
+            <p class="article-content">
+                {{article.snippet}}
+            </p>
+            
+            <small> posted by <i class="article-author"><a href="{% url 'articles:user-article-list' username=article.author %}">{{article.author}}</a></i> on <i class="text-muted article-date">{{article.date|date:"F d, Y f A"}}</i>
+            </small>
+            <div class="">
+                <small class="text-muted">
+                    {% if article.total_likes == 1 %}
+                    1 like
+                    {% else %}
+                {{ article.total_likes }} likes
+                {% endif %}</small>
+            </div>
+            
+
+        </div>
+    </article>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+<!-- <div class="articles">
+    {% for article in articles %}
+    <article class="media content-section glass">
+        <div class="media-body">
+            <img class="rounded-circle author-img" src="{{ article.author.profile.image.url }}">
+            <a class="mr-2 article-author" href="{% url 'articles:user-article-list' username=article.author %}">{{article.author}}</a>
+
+            <div class="media-body">
+                <h2>
+                    <a class="article-title" href="{% url 'articles:detail' slug=article.slug %}">{{article.title}}</a>
+                </h2>
+                <p class="article-content">{{article.snippet}}</p>
+
+            </div>
+            <div class="media">
+                <div class="media-body">
+                    <small class="text-muted">{{article.date|date:"F d, Y f A"}}</small>
+                </div>
+                
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+</div> -->
+
+
